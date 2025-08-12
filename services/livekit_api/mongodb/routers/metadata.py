@@ -117,10 +117,8 @@ def get_metadata(
                 "workflow_id": doc["workflow_id"],
                 "call_id": doc["call_id"],
                 "metadata": doc.get("metadata"),
-                "created_at": doc.get("created_at"),
-                "updated_at": doc.get("updated_at"),
-                "created_at_display": format_ist_ampm(doc.get("created_at")),
-                "updated_at_display": format_ist_ampm(doc.get("updated_at")),
+                "created_at": format_ist_ampm(doc.get("created_at")),
+                "updated_at": format_ist_ampm(doc.get("updated_at")),
             }
         elif workflow_id:
             docs = [d for d in calls().find(q, projection) if _in_range(d)]
@@ -128,10 +126,8 @@ def get_metadata(
                 {
                     "call_id": d["call_id"],
                     "metadata": d.get("metadata"),
-                    "created_at": d.get("created_at"),
-                    "updated_at": d.get("updated_at"),
-                    "created_at_display": format_ist_ampm(d.get("created_at")),
-                    "updated_at_display": format_ist_ampm(d.get("updated_at")),
+                    "created_at": format_ist_ampm(d.get("created_at")),
+                    "updated_at": format_ist_ampm(d.get("updated_at")),
                 }
                 for d in docs
             ]
@@ -145,10 +141,8 @@ def get_metadata(
                     {
                         "call_id": d["call_id"],
                         "metadata": d.get("metadata"),
-                        "created_at": d.get("created_at"),
-                        "updated_at": d.get("updated_at"),
-                        "created_at_display": format_ist_ampm(d.get("created_at")),
-                        "updated_at_display": format_ist_ampm(d.get("updated_at")),
+                        "created_at": format_ist_ampm(d.get("created_at")),
+                        "updated_at": format_ist_ampm(d.get("updated_at")),
                     }
                 )
             workflows_list = [{"workflow_id": wf, "calls": calls_} for wf, calls_ in workflows_map.items()]
@@ -181,10 +175,8 @@ def get_latest_call_metadata(
             "workflow_id": doc["workflow_id"],
             "call_id": doc["call_id"],
             "metadata": doc.get("metadata"),
-            "created_at": doc.get("created_at"),
-            "updated_at": doc.get("updated_at"),
-            "created_at_display": format_ist_ampm(doc.get("created_at")),
-            "updated_at_display": format_ist_ampm(doc.get("updated_at")),
+            "created_at": format_ist_ampm(doc.get("created_at")),
+            "updated_at": format_ist_ampm(doc.get("updated_at")),
         }
     except HTTPException:
         raise

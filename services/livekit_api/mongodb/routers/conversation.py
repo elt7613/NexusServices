@@ -138,10 +138,8 @@ def get_conversation(
                 "workflow_id": doc["workflow_id"],
                 "call_id": doc["call_id"],
                 "messages": msgs,
-                "created_at": doc.get("created_at"),
-                "updated_at": doc.get("updated_at"),
-                "created_at_display": format_ist_ampm(doc.get("created_at")),
-                "updated_at_display": format_ist_ampm(doc.get("updated_at")),
+                "created_at": format_ist_ampm(doc.get("created_at")),
+                "updated_at": format_ist_ampm(doc.get("updated_at")),
             }
         elif workflow_id:
             docs = [d for d in calls().find(q, projection) if _call_in_range(d)]
@@ -151,10 +149,8 @@ def get_conversation(
                 workflows_calls.append({
                     "call_id": d["call_id"],
                     "messages": msgs,
-                    "created_at": d.get("created_at"),
-                    "updated_at": d.get("updated_at"),
-                    "created_at_display": format_ist_ampm(d.get("created_at")),
-                    "updated_at_display": format_ist_ampm(d.get("updated_at")),
+                    "created_at": format_ist_ampm(d.get("created_at")),
+                    "updated_at": format_ist_ampm(d.get("updated_at")),
                 })
             return {"user_id": user_id, "workflow_id": workflow_id, "calls": workflows_calls}
         else:
@@ -166,10 +162,8 @@ def get_conversation(
                 wf_map.setdefault(wf, []).append({
                     "call_id": d["call_id"],
                     "messages": msgs,
-                    "created_at": d.get("created_at"),
-                    "updated_at": d.get("updated_at"),
-                    "created_at_display": format_ist_ampm(d.get("created_at")),
-                    "updated_at_display": format_ist_ampm(d.get("updated_at")),
+                    "created_at": format_ist_ampm(d.get("created_at")),
+                    "updated_at": format_ist_ampm(d.get("updated_at")),
                 })
             workflows_ = [{"workflow_id": wf, "calls": calls_} for wf, calls_ in wf_map.items()]
             return {"user_id": user_id, "workflows": workflows_}
@@ -205,10 +199,8 @@ def get_latest_call_conversation(
             "workflow_id": doc["workflow_id"],
             "call_id": doc["call_id"],
             "messages": msgs,
-            "created_at": doc.get("created_at"),
-            "updated_at": doc.get("updated_at"),
-            "created_at_display": format_ist_ampm(doc.get("created_at")),
-            "updated_at_display": format_ist_ampm(doc.get("updated_at")),
+            "created_at": format_ist_ampm(doc.get("created_at")),
+            "updated_at": format_ist_ampm(doc.get("updated_at")),
         }
     except HTTPException:
         raise
