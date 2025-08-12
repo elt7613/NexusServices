@@ -93,7 +93,7 @@ async def test_outbound_call_api():
     request_data = test_request
     
     # API endpoint URL (adjust as needed for your setup)
-    api_url = "http://0.0.0.0:8021/livekit/make-outbound-call"
+    api_url = "http://tkscw8048ssw0ss4kokkss0c.106.51.142.222.sslip.io/livekit/make-outbound-call"
     
     try:
         # Make the API call

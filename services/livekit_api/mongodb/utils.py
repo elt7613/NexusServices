@@ -43,3 +43,18 @@ def parse_any_dt_to_ist(v: Any) -> Optional[datetime]:
         return dt
     except Exception:
         return None
+
+
+def format_ist_ampm(v: Any, *, include_date: bool = True) -> Optional[str]:
+    """Return a user-friendly AM/PM formatted IST string for a datetime or ISO string.
+
+    Examples:
+    - include_date=True:  "2025-08-13 02:47:36 AM IST"
+    - include_date=False: "02:47:36 AM IST"
+    """
+    dt = parse_any_dt_to_ist(v)
+    if dt is None:
+        return None
+    if include_date:
+        return dt.strftime("%Y-%m-%d %I:%M:%S %p IST")
+    return dt.strftime("%I:%M:%S %p IST")

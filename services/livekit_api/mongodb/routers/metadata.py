@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Literal
 from fastapi import APIRouter, HTTPException, Query
 
 from ..db import users, workflows, calls
-from ..utils import IST, now_ist_iso, parse_any_dt_to_ist, parse_bound_date_only
+from ..utils import IST, now_ist_iso, parse_any_dt_to_ist, parse_bound_date_only, format_ist_ampm
 from ..models import AddMetadataRequest
 
 logger = logging.getLogger(__name__)
@@ -119,6 +119,8 @@ def get_metadata(
                 "metadata": doc.get("metadata"),
                 "created_at": doc.get("created_at"),
                 "updated_at": doc.get("updated_at"),
+                "created_at_display": format_ist_ampm(doc.get("created_at")),
+                "updated_at_display": format_ist_ampm(doc.get("updated_at")),
             }
         elif workflow_id:
             docs = [d for d in calls().find(q, projection) if _in_range(d)]
@@ -128,6 +130,8 @@ def get_metadata(
                     "metadata": d.get("metadata"),
                     "created_at": d.get("created_at"),
                     "updated_at": d.get("updated_at"),
+                    "created_at_display": format_ist_ampm(d.get("created_at")),
+                    "updated_at_display": format_ist_ampm(d.get("updated_at")),
                 }
                 for d in docs
             ]
@@ -143,6 +147,8 @@ def get_metadata(
                         "metadata": d.get("metadata"),
                         "created_at": d.get("created_at"),
                         "updated_at": d.get("updated_at"),
+                        "created_at_display": format_ist_ampm(d.get("created_at")),
+                        "updated_at_display": format_ist_ampm(d.get("updated_at")),
                     }
                 )
             workflows_list = [{"workflow_id": wf, "calls": calls_} for wf, calls_ in workflows_map.items()]
@@ -177,6 +183,8 @@ def get_latest_call_metadata(
             "metadata": doc.get("metadata"),
             "created_at": doc.get("created_at"),
             "updated_at": doc.get("updated_at"),
+            "created_at_display": format_ist_ampm(doc.get("created_at")),
+            "updated_at_display": format_ist_ampm(doc.get("updated_at")),
         }
     except HTTPException:
         raise
