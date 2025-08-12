@@ -1,9 +1,8 @@
 from pydantic_ai import Agent
-from pydantic_ai.usage import UsageLimits
 from config.llms import conversation_summarizer_llm
 from prompts.conversation_summarizer import conversation_summarizer_prompt
 from models.schema import ConversationSummaryModel
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from utils.agent_execution import execute_agent_safely
 
 # FastAPI router setup
@@ -12,7 +11,7 @@ conversation_summarizer_router = APIRouter()
 conversation_summarizer = Agent(
     model=conversation_summarizer_llm,
     system_prompt=conversation_summarizer_prompt,
-    result_type=ConversationSummaryModel,
+    output_type=ConversationSummaryModel,
     retries=5
 )
 
@@ -25,4 +24,4 @@ async def summarize_conversation(conversation_history: str) -> ConversationSumma
     """
 
     response = await execute_agent_safely(conversation_summarizer, prompt)
-    return response.data
+    return response.output

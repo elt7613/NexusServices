@@ -1,7 +1,6 @@
-import pymongo
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import os,logging,time,asyncio
+import os,logging,asyncio
 from typing import Dict, Any, Optional, List
 
 load_dotenv()
